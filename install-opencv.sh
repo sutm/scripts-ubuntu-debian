@@ -33,17 +33,23 @@ sudo apt-get install -y ant default-jdk
 sudo apt-get install -y doxygen
 
 
-# INSTALL THE LIBRARY (YOU CAN CHANGE '3.0.0' FOR THE LAST STABLE VERSION)
+#sudo apt-get install -y unzip wget
+cd ~
+wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
+unzip opencv.zip
+rm opencv.zip
+mv opencv-3.1.0 opencv
 
-sudo apt-get install -y unzip wget
-wget https://github.com/Itseez/opencv/archive/3.0.0.zip
-unzip 3.0.0.zip
-rm 3.0.0.zip
-mv opencv-3.0.0 OpenCV
-cd OpenCV
+wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
+unzip opencv_contrib.zip
+rm opencv_contrib.zip
+mv opencv_contrib-3.1.0 opencv_contrib
+
+cd opencv
 mkdir build
 cd build
-cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
+#cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=/home/sutm/opencv_contrib/modules -DBUILD_DOCS=ON -DBUILD_EXAMPLES=ON -DINSTALL_PYTHON_EXAMPLES=ON -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON ..
+cmake -i /home/sutm/opencv
 make -j4
 sudo make install
 sudo ldconfig

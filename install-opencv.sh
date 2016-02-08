@@ -27,7 +27,7 @@ sudo apt-get install -y libtbb-dev libeigen3-dev
 sudo apt-get install -y python-dev python-tk python-numpy python3-dev python3-tk python3-numpy
 
 # Java:
-sudo apt-get install -y ant default-jdk
+#sudo apt-get install -y ant default-jdk
 
 # Documentation:
 sudo apt-get install -y doxygen
@@ -45,16 +45,35 @@ unzip opencv_contrib.zip
 rm opencv_contrib.zip
 mv opencv_contrib-3.1.0 opencv_contrib
 
-cd opencv
+sudo pip3 install numpy
+
+cd ~/opencv
+
 mkdir build
 cd build
-#cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=/home/sutm/opencv_contrib/modules -DBUILD_DOCS=ON -DBUILD_EXAMPLES=ON -DINSTALL_PYTHON_EXAMPLES=ON -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON ..
-cmake -i /home/sutm/opencv
+
+cmake \
+-DCMAKE_BUILD_TYPE=Release \
+-DCMAKE_INSTALL_PREFIX=/usr/local \
+-DOPENCV_CONFIG_FILE_INCLUDE_DIR=~/opencv/build
+-DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+-DBUILD_DOCS=ON \
+-DBUILD_EXAMPLES=ON \
+-DBUILD_TBB=ON \
+-DBUILD_TESTS=ON \
+-DBUILD_opencv_python2=OFF \
+-DINSTALL_C_EXAMPLES=OFF \
+-DINSTALL_PYTHON_EXAMPLES=ON \
+-DWITH_EIGEN=ON \
+-DWITH_OPENGL=ON \
+-DWITH_QT=ON \
+-DWITH_TBB=ON \
+-DWITH_VTK=ON
+
 make -j4
 sudo make install
 sudo ldconfig
 
+#cd ~/virtualenvs/cv/lib/python3.4/site-packages
+#ln -s /usr/local/lib/python3.4/site-packages cv2.so
 
-# EXECUTE SOME OPENCV EXAMPLES AND COMPILE A DEMONSTRATION
-
-# To complete this step, please visit 'http://milq.github.io/install-opencv-ubuntu-debian'.
